@@ -34,7 +34,13 @@ export default function Recommended() {
     async function queryProduct() {
       if (products.length === 0) {
         try {
-          const { errors, data: topProducts } =
+          const fetchURL = process.env.NODE_ENV === 'development' ? '/RetailStore' : '';
+          const data = await fetch(fetchURL + "/products");
+          const topProducts = (await data.json()) as Schema['Product']['type'][];
+          setProducts(
+            topProducts.sort((a, b) => (a.rating! > b.rating! ? 1 : -1))
+          );
+          const { errors } =
             await client.models.Product.list({
               limit: 5,
             });
