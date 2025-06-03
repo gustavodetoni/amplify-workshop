@@ -15,9 +15,9 @@ import {
 } from "@aws-amplify/ui-react";
 import { fetchByPath, getOverrideProps, validateField } from "./utils";
 import { generateClient } from "aws-amplify/api";
-import { getCategory } from "./graphql/queries";
-import { updateCategory } from "./graphql/mutations";
-const client = generateClient();
+import { getCategory } from "../ui-components/graphql/queries";
+import { updateCategory } from "../ui-components/graphql/mutations";
+const client = generateClient({ authMode: 'userPool' });
 function ArrayField({
   items = [],
   onChange,
